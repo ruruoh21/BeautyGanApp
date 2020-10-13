@@ -16,13 +16,13 @@ import numpy as np
 
 
 detector = dlib.get_frontal_face_detector()
-sp = dlib.shape_predictor('./models/shape_predictor_5_face_landmarks.dat')   #생김새(모양) 예측하는거 #랜드마크 5개를 찾아준다.
+sp = dlib.shape_predictor('../models/shape_predictor_5_face_landmarks.dat')   #생김새(모양) 예측하는거 #랜드마크 5개를 찾아준다.
 
 
 # In[3]:
 
 
-img = dlib.load_rgb_image('./imgs/12.jpg')
+img = dlib.load_rgb_image('../imgs/12.jpg')
 plt.figure(figsize=(16, 10))
 plt.imshow(img)
 plt.show()
@@ -88,7 +88,7 @@ def align_faces(img):
         return faces
 
 #함수호출
-test_img = dlib.load_rgb_image('./imgs/12.jpg')  #이미지를 불러옴
+test_img = dlib.load_rgb_image('../imgs/12.jpg')  #이미지를 불러옴
 test_faces = align_faces(test_img)   #얼굴 찾아주는 애(face_detertor)
 fig, axes = plt.subplots(1, len(test_faces)+1, figsize=(20, 16))
 axes[0].imshow(test_img)
@@ -107,8 +107,8 @@ for i, face in enumerate(test_faces):
 
 sess =  tf.Session()
 sess.run(tf.global_variables_initializer())
-saver = tf.train.import_meta_graph('./models/model.meta')
-saver.restore(sess, tf.train.latest_checkpoint('./models'))
+saver = tf.train.import_meta_graph('../models/model.meta')
+saver.restore(sess, tf.train.latest_checkpoint('../models'))
 graph = tf.get_default_graph()
 X = graph.get_tensor_by_name('X:0')
 Y = graph.get_tensor_by_name('Y:0')
@@ -132,11 +132,11 @@ def deprocess(img):
 
 
 # source 이미지
-img1 = dlib.load_rgb_image('./imgs/12.jpg')  #no_makeup/xfsy_0405
+img1 = dlib.load_rgb_image('../imgs/12.jpg')  #no_makeup/xfsy_0405
 img1_faces = align_faces(img1)
 
 # reference 이미지
-img2 = dlib.load_rgb_image('./imgs/makeup/2020.jpg')
+img2 = dlib.load_rgb_image('../imgs/makeup/2020.jpg')
 img2_faces = align_faces(img2)
 
 fig, axes = plt.subplots(1,2,figsize=(16,10))
@@ -145,11 +145,11 @@ axes[1].imshow(img2_faces[0])
 plt.show()
 
 
-# img1 = dlib.load_rgb_image('./imgs/no_makeup/vSYYZ306.png')
+# img1 = dlib.load_rgb_image('../imgs/no_makeup/vSYYZ306.png')
 # img1_faces = alingn_faces(img1)
 # 
 # 
-# img2 = dlib.load_rgb_image('./imgs/makeup/002.jpg')
+# img2 = dlib.load_rgb_image('../imgs/makeup/002.jpg')
 # img2_faces = alingn_faces(img2)
 # 
 # fig, axes = plt.subplots(1,2,figsize=(16,10))
